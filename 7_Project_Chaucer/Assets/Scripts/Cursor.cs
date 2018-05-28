@@ -13,7 +13,6 @@ public class Cursor : MonoBehaviour
 
 	void Update() 
 	{
-		var layerHit = cameraRaycaster.layerHit;
-		print(layerHit);
+		
 	}
 }
