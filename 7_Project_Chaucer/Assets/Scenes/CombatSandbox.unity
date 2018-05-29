@@ -537,6 +537,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114657939573781136, guid: fd2f7d50294a75f4485c8821bdd1a8a7,
+        type: 2}
+      propertyPath: walkMoveStopRadius
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fd2f7d50294a75f4485c8821bdd1a8a7, type: 2}
   m_IsPrefabParent: 0
