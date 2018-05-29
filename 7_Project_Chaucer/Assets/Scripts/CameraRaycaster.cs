@@ -2,6 +2,9 @@
 
 public class CameraRaycaster : MonoBehaviour
 {
+    public delegate void OnLayerChange(); // declare new delegate type
+    public OnLayerChange layerChangeObservers; // instantiate an observer set
+
     public Layer[] layerPriorities = {
         Layer.Enemy,
         Layer.Walkable
@@ -36,7 +39,11 @@ public class CameraRaycaster : MonoBehaviour
             if (hit.HasValue)
             {
                 raycastHit = hit.Value;
-                layerHit = layer;
+                if (layerHit != layer) // if layer has changed
+                {
+                   layerHit = layer; 
+                   layerChangeObservers(); // call the delegates
+                } 
                 return;
             }
         }

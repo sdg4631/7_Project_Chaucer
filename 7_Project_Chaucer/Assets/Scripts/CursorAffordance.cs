@@ -12,12 +12,13 @@ public class CursorAffordance : MonoBehaviour
 
 	CameraRaycaster cameraRaycaster;
 	
-	void Start()
+	void Awake()
 	{
 		cameraRaycaster = GetComponent<CameraRaycaster>();
+		cameraRaycaster.layerChangeObservers += OnLayerChanged; // regestering
 	}
 
-	void LateUpdate() 
+	void OnLayerChanged() 
 	{
 		switch (cameraRaycaster.currentLayerHit)
 		{
