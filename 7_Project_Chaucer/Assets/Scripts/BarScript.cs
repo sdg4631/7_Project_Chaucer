@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class BarScript : MonoBehaviour 
 {
 	[SerializeField] private float fillAmount; // unserialize later
-	[SerializeField] private float lerpSpeed;
-	[SerializeField] private Image content; 
-	[SerializeField] private Image lerpingBar;
-	[SerializeField] private Text valueText;
+	[SerializeField] private float lerpSpeed = 0f;
+	[SerializeField] private Image content = null; 
+	[SerializeField] private Image lerpingBar = null;
 	[SerializeField] Color fullColor;
 	[SerializeField] Color lowColor;
 
@@ -20,8 +19,6 @@ public class BarScript : MonoBehaviour
 	{
 		set
 		{
-			string[] temp = valueText.text.Split(':');
-			valueText.text = temp[0] + ": " + value;
 			fillAmount = Map(value, 0, MaxValue, 0, 1);
 		}
 	}
