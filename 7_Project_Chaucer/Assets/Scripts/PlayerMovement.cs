@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 ShortDestination(Vector3 destination, float shortening)
     {
-        Vector3 reductionVector = (destination - transform.position).normalized *shortening;
+        Vector3 reductionVector = (destination - transform.position).normalized * shortening;
         return destination - reductionVector;
     }
 
