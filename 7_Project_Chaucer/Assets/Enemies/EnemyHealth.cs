@@ -2,31 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour 
+public class EnemyHealth : MonoBehaviour, IDamagable
 {
 	[SerializeField] public Stat health;
+	[SerializeField] private 
 
 	void Awake() 
 	{
 		health.Initialize();
 	}
 
-	void Update() 
+	public void TakeDamage(float damage)
 	{
-		ModifyHealth();
-	}
-
-	void ModifyHealth()
-	{
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			health.CurrentVal -= 10;
-		}
-
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			health.CurrentVal += 10;
-		}
-		
+		health.CurrentVal = health.CurrentVal - damage;
 	}
 }
