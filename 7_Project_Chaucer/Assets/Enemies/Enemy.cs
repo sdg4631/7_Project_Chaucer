@@ -6,7 +6,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 public class Enemy : MonoBehaviour 
 {
 	[SerializeField] float attackRadius = 4f;
-	[SerializeField] float aggroRange = 20f;
+	[SerializeField] float chaseRadius = 10f;
 
 
 	ThirdPersonCharacter thirdPersonCharacter = null;
@@ -31,18 +31,28 @@ public class Enemy : MonoBehaviour
 
 		if (distanceToPlayer <= attackRadius)
 		{
+			print(gameObject.name + " attacking player");
+			// TODO spawn projectile 
+		}
+
+		if (distanceToPlayer <= chaseRadius)
+		{
 			aICharacterControl.SetTarget(player.transform);
 		}
 		else
 		{
 			aICharacterControl.SetTarget(transform);
 		}
+	}
 
-		// TODO return enemy to starting location 
-		// if (distanceFromStartingLocation >= aggroRange)
-		// {
-		// 	aICharacterControl.SetTarget(null);
-		// 	thirdPersonCharacter.Move(startingLocation, false, false);
-		// }
+	void OnDrawGizmos()
+    {
+        // draw attack sphere
+        Gizmos.color = new Color(255f, 0f, 0f, .5f);
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
+
+		// draw move sphere
+        Gizmos.color = new Color(0f, 0f, 255f, .5f);
+        Gizmos.DrawWireSphere(transform.position, chaseRadius);
 	}
 }
