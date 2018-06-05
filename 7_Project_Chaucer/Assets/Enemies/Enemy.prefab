@@ -658,7 +658,6 @@ GameObject:
   - component: {fileID: 5426510}
   - component: {fileID: 13615390}
   - component: {fileID: 11469404}
-  - component: {fileID: 114296771015841128}
   - component: {fileID: 114307101644009566}
   - component: {fileID: 114326480023229352}
   - component: {fileID: 195677639070463338}
@@ -1375,7 +1374,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149790}
   m_LocalRotation: {x: -0, y: 0.96001685, z: -0, w: 0.27994236}
-  m_LocalPosition: {x: -51.92, y: 0, z: 32.74}
+  m_LocalPosition: {x: -5.5973816, y: -0.12818146, z: 0.10568237}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 469942}
@@ -2836,21 +2835,6 @@ MonoBehaviour:
   lerpingBar: {fileID: 114508814641823468}
   fullColor: {r: 1, g: 0.023584902, b: 0.023584902, a: 1}
   lowColor: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
---- !u!114 &114296771015841128
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7db7bea120ef9d4296d7343e4cbbfa9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health:
-    bar: {fileID: 114238312728981372}
-    maxVal: 100
-    currentVal: 100
 --- !u!114 &114307101644009566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2862,11 +2846,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba65fdb345eef954e9db2adc5bf7e9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health:
+    bar: {fileID: 114238312728981372}
+    maxVal: 100
+    currentVal: 100
   attackRadius: 4
   chaseRadius: 10
+  damagePerShot: 7
+  secondsBetweenShots: 1
   projectileToUse: {fileID: 1161617686850146, guid: ba5d3277b69b7334785f6a9a69c1d173,
     type: 2}
   projectileSocket: {fileID: 1374441378310096}
+  aimOffset: {x: 0, y: 1, z: 0}
 --- !u!114 &114326480023229352
 MonoBehaviour:
   m_ObjectHideFlags: 1

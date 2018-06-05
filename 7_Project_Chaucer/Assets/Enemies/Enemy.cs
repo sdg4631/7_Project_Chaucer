@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 
-public class Enemy : MonoBehaviour 
+public class Enemy : MonoBehaviour, IDamagable
 {
+	[SerializeField] public Stat health;
 	[SerializeField] float attackRadius = 4f;
 	[SerializeField] float chaseRadius = 10f;
 	[SerializeField] float damagePerShot = 7f;
 	[SerializeField] float secondsBetweenShots = 1f;
 	[SerializeField] GameObject projectileToUse;
 	[SerializeField] GameObject projectileSocket;
+	[SerializeField] Vector3 aimOffset = new Vector3(0,1f,0);
 
 	ThirdPersonCharacter thirdPersonCharacter = null;
 	AICharacterControl aICharacterControl = null;
@@ -18,6 +20,22 @@ public class Enemy : MonoBehaviour
 	Vector3 startingLocation;
 
 	bool isAttacking = false;
+
+	public void TakeDamage(float damage)
+	{
+		health.CurrentVal = health.CurrentVal - damage;
+
+		if (health.CurrentVal <= 0)
+        {
+            Destroy(gameObject);
+        }
+
+	}
+
+	void Awake() 
+	{
+		health.Initialize();
+	}
 
 	void Start() 
 	{
@@ -54,13 +72,13 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-    private void SpawnProjectile()
+    void SpawnProjectile()
     {
         GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
 		Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
 		projectileComponent.SetDamage(damagePerShot);
 
-		Vector3 unitVectorToPlayer = (player.transform.position - projectileSocket.transform.position).normalized;
+		Vector3 unitVectorToPlayer = (player.transform.position + aimOffset - projectileSocket.transform.position).normalized;
 		float projectileSpeed = projectileComponent.projectileSpeed;
 		newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileSpeed;
     }
