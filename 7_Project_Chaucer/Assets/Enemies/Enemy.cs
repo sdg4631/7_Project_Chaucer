@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] float attackRadius = 4f;
 	[SerializeField] float chaseRadius = 10f;
 	[SerializeField] float damagePerShot = 7f;
+	[SerializeField] float secondsBetweenShots = 1f;
 	[SerializeField] GameObject projectileToUse;
 	[SerializeField] GameObject projectileSocket;
 
@@ -15,7 +16,8 @@ public class Enemy : MonoBehaviour
 	AICharacterControl aICharacterControl = null;
 	GameObject player;
 	Vector3 startingLocation;
-	Transform startingTransform;
+
+	bool isAttacking = false;
 
 	void Start() 
 	{
@@ -23,7 +25,6 @@ public class Enemy : MonoBehaviour
 		aICharacterControl = GetComponent<AICharacterControl>();
 		player = GameObject.FindGameObjectWithTag("Player");
 		startingLocation = transform.position;
-		startingTransform = transform;
 	}
 	
 	void Update() 
@@ -31,10 +32,17 @@ public class Enemy : MonoBehaviour
 		float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 		float distanceFromStartingLocation = Vector3.Distance(startingLocation, transform.position);
 
-		if (distanceToPlayer <= attackRadius)
+		if (distanceToPlayer <= attackRadius && !isAttacking)
         {
-            SpawnProjectile();
+			isAttacking = true;
+            InvokeRepeating("SpawnProjectile", 0f, secondsBetweenShots); // TODO switch to coroutine
         }
+
+		if (distanceToPlayer > attackRadius)
+		{
+			isAttacking = false;
+			CancelInvoke();
+		}
 
         if (distanceToPlayer <= chaseRadius)
 		{
@@ -50,7 +58,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
 		Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
-		projectileComponent.damageCaused = damagePerShot;
+		projectileComponent.SetDamage(damagePerShot);
 
 		Vector3 unitVectorToPlayer = (player.transform.position - projectileSocket.transform.position).normalized;
 		float projectileSpeed = projectileComponent.projectileSpeed;

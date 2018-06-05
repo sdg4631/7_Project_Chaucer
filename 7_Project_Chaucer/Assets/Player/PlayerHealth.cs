@@ -14,5 +14,10 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 	public void TakeDamage(float damage)
 	{
 		health.CurrentVal = health.CurrentVal - damage;
+
+		if (health.CurrentVal <= 0)
+		{
+			Destroy(gameObject);
+		}
 	}
 }
